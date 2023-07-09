@@ -1,0 +1,628 @@
+openapi: '3.0.3'
+info:
+  title: JSON Resume API
+  description: >-
+    An API standard for retrieving resumes in JSON format, predominantly aligned with the JSON resume standard:
+    https://jsonresume.org/
+  version: 1.1.0
+
+tags:
+  - name: Resume
+    description: >-
+      A consent to access account information resources
+
+paths:
+  /resume:
+    get:
+      summary: Get Resume
+      tags:
+        - Resume
+      responses:
+        200:
+          description: Get resume successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resume'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+    post:
+      summary: Create Resume
+      tags:
+        - Resume
+      requestBody:
+        description: Resume body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resume'
+      responses:
+        201:
+          description: Create resource successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resume'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+    put:
+      summary: Update Existing Resume
+      tags:
+        - Resume
+      requestBody:
+        description: Resume body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resume'
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resume'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+    delete:
+      summary: Delete Users
+      tags:
+        - Resume
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+
+  /resume/{owner}:
+    get:
+      summary: Get Resume
+      tags:
+        - Resume
+      parameters:
+        - in: path
+          name: userId
+          description: Id of the owner of the resume
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Get resource successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resume'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+
+components:
+  securitySchemes:
+    OAuth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /authorize
+          scopes:
+            read: Read resumes
+            write: Modify resume
+  schemas:
+    Resume:
+      type: object
+      additionalProperties: false
+      description: |
+        https://github.com/jsonresume/resume-schema/blob/master/schema.json
+      required:
+        - basics
+      properties:
+        basics:
+          $ref: '#/components/schemas/Basics'
+        work:
+          type: array
+          items:
+            $ref: '#/components/schemas/Work'
+        volunteer:
+          type: array
+          items:
+            $ref: '#/components/schemas/Volunteer'
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/Education'
+        awards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Award'
+        certificates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certificate'
+        publications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Publication'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+        interests:
+          type: array
+          items:
+            $ref: '#/components/schemas/Interest'
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+
+    Basics:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+          description: e.g. Web Developer
+        image:
+          type: string
+          description: URL (as per RFC 3986) to a image in JPEG or PNG format
+        email:
+          type: string
+          description: e.g. thomas@gmail.com
+          format: email
+        phone:
+          type: string
+          description:
+            Phone numbers are stored as strings so use any format you like,
+            e.g. 712-117-2923
+        url:
+          type: string
+          description: URL (as per RFC 3986) to your website, e.g. personal homepage
+          format: uri
+        summary:
+          type: string
+          description: Write a short 2-3 sentence biography about yourself
+        location:
+          type: object
+          properties:
+            address:
+              type: string
+              description:
+                "To add multiple address lines, use \n. For example, 1234
+                Main Street\nCentral Building, Level 2."
+            postalCode:
+              type: string
+            city:
+              type: string
+            countryCode:
+              type: string
+              description: code as per ISO-3166-1 ALPHA-2, e.g. US, AU, IN
+            region:
+              type: string
+              description:
+                The general region where you live. Can be a US state, or
+                a province, for instance.
+        profiles:
+          type: array
+          description: Specify any number of social networks that you participate in
+          items:
+            type: object
+            properties:
+              network:
+                type: string
+                description: e.g. Facebook or Twitter
+              username:
+                type: string
+                description: e.g. myspace
+              url:
+                type: string
+                description: e.g. http://twitter.example.com/neutralthoughts
+                format: uri
+
+    Work:
+      type: object
+      properties:
+        name:
+          type: string
+          description: e.g. Facebook
+        location:
+          type: string
+          description: e.g. Menlo Park, CA
+        description:
+          type: string
+          description: e.g. Social Media Company
+        position:
+          type: string
+          description: e.g. Software Engineer
+        url:
+          type: string
+          description: e.g. http://facebook.example.com
+          format: uri
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        summary:
+          type: string
+          description: Give an overview of your responsibilities at the company
+        highlights:
+          type: array
+          description: Specify multiple accomplishments
+          items:
+            type: string
+            description:
+              e.g. Increased profits by 20% from 2011-2012 through viral
+              advertising
+
+    Volunteer:
+      type: object
+      properties:
+        organization:
+          type: string
+          description: e.g. Facebook
+        position:
+          type: string
+          description: e.g. Software Engineer
+        url:
+          type: string
+          description: e.g. http://facebook.example.com
+          format: uri
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        summary:
+          type: string
+          description: Give an overview of your responsibilities at the company
+        highlights:
+          type: array
+          description: Specify accomplishments and achievements=
+          items:
+            type: string
+            description:
+              e.g. Increased profits by 20% from 2011-2012 through viral
+              advertising
+
+    Education:
+      type: object
+      properties:
+        institution:
+          type: string
+          description: e.g. Massachusetts Institute of Technology
+        url:
+          type: string
+          description: e.g. http://facebook.example.com
+          format: uri
+        area:
+          type: string
+          description: e.g. Arts
+        studyType:
+          type: string
+          description: e.g. Bachelor
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        score:
+          type: string
+          description: grade point average, e.g. 3.67/4.0
+        courses:
+          type: array
+          description: List notable courses/subjects
+          items:
+            type: string
+            description: e.g. H1302 - Introduction to American history
+
+    Award:
+      type: object
+      properties:
+        title:
+          type: string
+          description: e.g. One of the 100 greatest minds of the century
+        date:
+          type: string
+          format: date
+        awarder:
+          type: string
+          description: e.g. Time Magazine
+        summary:
+          type: string
+          description: e.g. Received for my work with Quantum Physics
+
+    Certificate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: e.g. Certified Kubernetes Administrator
+        date:
+          type: string
+          description: e.g. 1989-06-12
+          format: date
+        url:
+          type: string
+          description: e.g. http://example.com
+          format: uri
+        issuer:
+          type: string
+          description: e.g. CNCF
+
+    Publication:
+      type: object
+      properties:
+        name:
+          type: string
+          description: e.g. The World Wide Web
+        publisher:
+          type: string
+          description: e.g. IEEE, Computer Magazine
+        releaseDate:
+          type: string
+          format: date
+        url:
+          type: string
+          description: e.g. http://www.computer.org.example.com/csdl/mags/co/1996/10/rx069-abs.html
+          format: uri
+        summary:
+          type: string
+          description:
+            Short summary of publication. e.g. Discussion of the World
+            Wide Web, HTTP, HTML.
+    Skill:
+      type: object
+      properties:
+        name:
+          type: string
+          description: e.g. Web Development
+        level:
+          type: string
+          description: e.g. Master
+        keywords:
+          type: array
+          description: List some keywords pertaining to this skill
+          items:
+            type: string
+            description: e.g. HTML
+    Language:
+      type: object
+      properties:
+        language:
+          type: string
+          description: e.g. English, Spanish
+        fluency:
+          description: >-
+            Language fluency according to the ILR scale
+            https://en.wikipedia.org/wiki/ILR_scale
+          type: string
+          enum:
+            - No proficiency
+            - Elementary
+            - Limited working
+            - Professional working
+            - Full professional
+            - Native or bilingual
+
+    Interest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: e.g. Philosophy
+        keywords:
+          type: array
+          items:
+            type: string
+            description: e.g. Friedrich Nietzsche
+
+    Reference:
+      type: object
+      properties:
+        name:
+          type: string
+          description: e.g. Timothy Cook
+        reference:
+          type: string
+          description:
+            e.g. Joe blogs was a great employee, who turned up to work
+            at least once a week. He exceeded my expectations when it came to doing
+            nothing.
+
+    Project:
+      type: object
+      properties:
+        name:
+          type: string
+          description: e.g. The World Wide Web
+        description:
+          type: string
+          description: Short summary of project. e.g. Collated works of 2017.
+        highlights:
+          type: array
+          description: Specify multiple features
+          items:
+            type: string
+            description: e.g. Directs you close but not quite there
+        keywords:
+          type: array
+          description: Specify special elements involved
+          items:
+            type: string
+            description: e.g. AngularJS
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        url:
+          type: string
+          format: uri
+          description: e.g. http://www.computer.org/csdl/mags/co/1996/10/rx069-abs.html
+        roles:
+          type: array
+          description: Specify your role on this project or in company
+          items:
+            type: string
+            description: e.g. Team Lead, Speaker, Writer
+        entity:
+          type: string
+          description:
+            Specify the relevant company/entity affiliations e.g. 'greenpeace',
+            'corporationXYZ'
+        type:
+          type: string
+          description:
+            " e.g. 'volunteering', 'presentation', 'talk', 'application',
+            'conference'"
+
+    Error:
+      type: object
+      description: A Problem Details object (https://datatracker.ietf.org/doc/html/rfc7807)
+      minProperties: 1
+      additionalProperties: true
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the problem type.
+          pattern: ^(?:[a-zA-Z][\w+.-]*:)?(?:\/\/(?:[^\/?#]*@)?(?:[^\/?#]*\.[^\/?#]*)?(?::[0-9]+)?(?:\/?|[\/?]\S+)?)(?:\?[^#]*)?(?:#.*)?$
+        title:
+          type: string
+          description: A short, human-readable summary of the problem.
+          example: Service Unavailable
+          minLength: 1
+          maxLength: 32
+        status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the problem.
+          format: int32
+          minimum: 400
+          maximum: 600
+          exclusiveMaximum: true
+          example: 503
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+          minLength: 1
+          maxLength: 256
+        instance:
+          type: string
+          format: uri
+          description: A URI reference that identifies the specific occurrence of the problem.
+          pattern: ^(?:[a-zA-Z][\w+.-]*:)?(?:\/\/(?:[^\/?#]*@)?(?:[^\/?#]*\.[^\/?#]*)?(?::[0-9]+)?(?:\/?|[\/?]\S+)?)(?:\?[^#]*)?(?:#.*)?$
+
+  responses:
+    400ErrorResponse:
+      description: Bad Request
+      headers:
+        interaction-id:
+          description: An RFC4122 UID used as a correlation id
+          schema: { type: string }
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    401ErrorResponse:
+      description: Unauthorized
+      headers:
+        interaction-id:
+          description: An RFC4122 UID used as a correlation id
+          schema: { type: string }
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    403ErrorResponse:
+      description: Forbidden
+      headers:
+        interaction-id:
+          description: An RFC4122 UID used as a correlation id
+          schema: { type: string }
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    404ErrorResponse:
+      description: Not Found
+      headers:
+        interaction-id:
+          description: An RFC4122 UID used as a correlation id
+          schema: { type: string }
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    406ErrorResponse:
+      description: Not Acceptable
+      headers:
+        interaction-id:
+          description: An RFC4122 UID used as a correlation id
+          schema: { type: string }
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    409ErrorResponse:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    429ErrorResponse:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
