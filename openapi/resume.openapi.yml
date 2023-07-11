@@ -11,6 +11,15 @@ tags:
     description: >-
       A consent to access account information resources
 
+servers:
+  - url: https://localhost:3000/
+    description: Local development server
+
+security:
+  - OAuth:
+      - read
+      - write
+
 paths:
   /resume:
     get:
@@ -34,6 +43,8 @@ paths:
           $ref: '#/components/responses/406ErrorResponse'
         429:
           $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
     post:
       summary: Create Resume
       tags:
@@ -60,8 +71,16 @@ paths:
           $ref: '#/components/responses/403ErrorResponse'
         404:
           $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
         409:
           $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
     put:
       summary: Update Existing Resume
       tags:
@@ -88,8 +107,16 @@ paths:
           $ref: '#/components/responses/403ErrorResponse'
         404:
           $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
         409:
           $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
     delete:
       summary: Delete Users
       tags:
@@ -105,19 +132,18 @@ paths:
           $ref: '#/components/responses/404ErrorResponse'
         406:
           $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
 
-  /resume/{owner}:
+  /resume/{userId}:
     get:
       summary: Get Resume
       tags:
         - Resume
       parameters:
-        - in: path
-          name: userId
-          description: Id of the owner of the resume
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/UserId'
       responses:
         200:
           description: Get resource successful
@@ -133,14 +159,19 @@ paths:
           $ref: '#/components/responses/404ErrorResponse'
         406:
           $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
 
 components:
   securitySchemes:
     OAuth:
       type: oauth2
       flows:
-        implicit:
-          authorizationUrl: /authorize
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
           scopes:
             read: Read resumes
             write: Modify resume
@@ -157,67 +188,84 @@ components:
           $ref: '#/components/schemas/Basics'
         work:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Work'
         volunteer:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Volunteer'
         education:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Education'
         awards:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Award'
         certificates:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Certificate'
         publications:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Publication'
         skills:
           type: array
+          maxItems: 512
           items:
             $ref: '#/components/schemas/Skill'
         languages:
           type: array
+          maxItems: 512
           items:
             $ref: '#/components/schemas/Language'
         interests:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Interest'
         references:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Reference'
         projects:
           type: array
+          maxItems: 256
           items:
             $ref: '#/components/schemas/Project'
 
     Basics:
       type: object
-      additionalProperties: false
+      additionalProperties: true
       properties:
         name:
           type: string
+          maxLength: 256
         label:
           type: string
           description: e.g. Web Developer
+          maxLength: 256
         image:
           type: string
           description: URL (as per RFC 3986) to a image in JPEG or PNG format
+          format: uri
+          maxLength: 2048 # RFC 7230
         email:
           type: string
           description: e.g. thomas@gmail.com
           format: email
+          maxLength: 254 # RFC 5321
         phone:
           type: string
+          maxLength: 32
           description:
             Phone numbers are stored as strings so use any format you like,
             e.g. 712-117-2923
@@ -225,11 +273,14 @@ components:
           type: string
           description: URL (as per RFC 3986) to your website, e.g. personal homepage
           format: uri
+          maxLength: 2048 # RFC 7230
         summary:
           type: string
           description: Write a short 2-3 sentence biography about yourself
+          maxLength: 8192
         location:
           type: object
+          additionalProperties: true
           properties:
             address:
               type: string
@@ -251,22 +302,29 @@ components:
         profiles:
           type: array
           description: Specify any number of social networks that you participate in
+          additionalProperties: false
           items:
             type: object
+            additionalProperties: true
+            maxItems: 128
             properties:
               network:
                 type: string
+                maxLength: 256
                 description: e.g. Facebook or Twitter
               username:
                 type: string
-                description: e.g. myspace
+                maxLength: 256
+                description: e.g. user01
               url:
                 type: string
-                description: e.g. http://twitter.example.com/neutralthoughts
+                description: e.g. http://twitter.example.com/user01
                 format: uri
+                maxLength: 2048 # RFC 7230
 
     Work:
       type: object
+      additionalProperties: true
       properties:
         name:
           type: string
@@ -284,6 +342,7 @@ components:
           type: string
           description: e.g. http://facebook.example.com
           format: uri
+          maxLength: 2048 # RFC 7230
         startDate:
           type: string
           format: date
@@ -296,14 +355,14 @@ components:
         highlights:
           type: array
           description: Specify multiple accomplishments
+          maxItems: 128
           items:
             type: string
-            description:
-              e.g. Increased profits by 20% from 2011-2012 through viral
-              advertising
+            description: e.g. Increased profits by 20% from 2011-2012 through viral advertising
 
     Volunteer:
       type: object
+      additionalProperties: true
       properties:
         organization:
           type: string
@@ -315,6 +374,7 @@ components:
           type: string
           description: e.g. http://facebook.example.com
           format: uri
+          maxLength: 2048 # RFC 7230
         startDate:
           type: string
           format: date
@@ -326,15 +386,14 @@ components:
           description: Give an overview of your responsibilities at the company
         highlights:
           type: array
-          description: Specify accomplishments and achievements=
+          description: Specify accomplishments and achievements
           items:
             type: string
-            description:
-              e.g. Increased profits by 20% from 2011-2012 through viral
-              advertising
+            description: e.g. Increased profits by 20% from 2011-2012 through viral advertising
 
     Education:
       type: object
+      additionalProperties: false
       properties:
         institution:
           type: string
@@ -343,6 +402,7 @@ components:
           type: string
           description: e.g. http://facebook.example.com
           format: uri
+          maxLength: 2048 # RFC 7230
         area:
           type: string
           description: e.g. Arts
@@ -367,6 +427,7 @@ components:
 
     Award:
       type: object
+      additionalProperties: true
       properties:
         title:
           type: string
@@ -383,6 +444,7 @@ components:
 
     Certificate:
       type: object
+      additionalProperties: true
       properties:
         name:
           type: string
@@ -395,12 +457,14 @@ components:
           type: string
           description: e.g. http://example.com
           format: uri
+          maxLength: 2048 # RFC 7230
         issuer:
           type: string
           description: e.g. CNCF
 
     Publication:
       type: object
+      additionalProperties: true
       properties:
         name:
           type: string
@@ -413,19 +477,21 @@ components:
           format: date
         url:
           type: string
-          description: e.g. http://www.computer.org.example.com/csdl/mags/co/1996/10/rx069-abs.html
+          description: e.g. https://www.example.com
           format: uri
+          maxLength: 2048 # RFC 7230
         summary:
           type: string
-          description:
-            Short summary of publication. e.g. Discussion of the World
-            Wide Web, HTTP, HTML.
+          description: Short summary of publication. e.g. Discussion of the World Wide Web, HTTP, HTML.
+
     Skill:
       type: object
+      additionalProperties: true
       properties:
         name:
           type: string
           description: e.g. Web Development
+          maxLength: 256
         level:
           type: string
           description: e.g. Master
@@ -435,11 +501,14 @@ components:
           items:
             type: string
             description: e.g. HTML
+
     Language:
       type: object
+      additionalProperties: true
       properties:
         language:
           type: string
+          maxLength: 64
           description: e.g. English, Spanish
         fluency:
           description: >-
@@ -456,24 +525,31 @@ components:
 
     Interest:
       type: object
+      additionalProperties: true
       properties:
         name:
           type: string
           description: e.g. Philosophy
+          maxLength: 256
         keywords:
           type: array
+          maxItems: 256
           items:
             type: string
+            maxLength: 64
             description: e.g. Friedrich Nietzsche
 
     Reference:
       type: object
+      additionalProperties: true
       properties:
         name:
           type: string
           description: e.g. Timothy Cook
+          maxLength: 256
         reference:
           type: string
+          maxLength: 8192
           description:
             e.g. Joe blogs was a great employee, who turned up to work
             at least once a week. He exceeded my expectations when it came to doing
@@ -481,13 +557,16 @@ components:
 
     Project:
       type: object
+      additionalProperties: true
       properties:
         name:
           type: string
           description: e.g. The World Wide Web
+          maxLength: 256
         description:
           type: string
           description: Short summary of project. e.g. Collated works of 2017.
+          maxLength: 256
         highlights:
           type: array
           description: Specify multiple features
@@ -508,8 +587,9 @@ components:
           format: date
         url:
           type: string
+          description: e.g. http://www.example.com
           format: uri
-          description: e.g. http://www.computer.org/csdl/mags/co/1996/10/rx069-abs.html
+          maxLength: 2048 # RFC 7230
         roles:
           type: array
           description: Specify your role on this project or in company
@@ -518,14 +598,14 @@ components:
             description: e.g. Team Lead, Speaker, Writer
         entity:
           type: string
+          maxLength: 512
           description:
             Specify the relevant company/entity affiliations e.g. 'greenpeace',
             'corporationXYZ'
         type:
           type: string
-          description:
-            " e.g. 'volunteering', 'presentation', 'talk', 'application',
-            'conference'"
+          maxLength: 256
+          description: e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'
 
     Error:
       type: object
@@ -535,15 +615,14 @@ components:
       properties:
         type:
           type: string
-          format: uri
           description: A URI reference that identifies the problem type.
-          pattern: ^(?:[a-zA-Z][\w+.-]*:)?(?:\/\/(?:[^\/?#]*@)?(?:[^\/?#]*\.[^\/?#]*)?(?::[0-9]+)?(?:\/?|[\/?]\S+)?)(?:\?[^#]*)?(?:#.*)?$
+          format: uri
+          maxLength: 2048 # RFC 7230
         title:
           type: string
           description: A short, human-readable summary of the problem.
           example: Service Unavailable
-          minLength: 1
-          maxLength: 32
+          maxLength: 128
         status:
           type: integer
           description: The HTTP status code generated by the origin server for this occurrence of the problem.
@@ -555,61 +634,58 @@ components:
         detail:
           type: string
           description: A human-readable explanation specific to this occurrence of the problem.
-          minLength: 1
-          maxLength: 256
+          maxLength: 1024
         instance:
           type: string
-          format: uri
           description: A URI reference that identifies the specific occurrence of the problem.
-          pattern: ^(?:[a-zA-Z][\w+.-]*:)?(?:\/\/(?:[^\/?#]*@)?(?:[^\/?#]*\.[^\/?#]*)?(?::[0-9]+)?(?:\/?|[\/?]\S+)?)(?:\?[^#]*)?(?:#.*)?$
+          format: uri
+          maxLength: 2048 # RFC 7230
+
+  parameters:
+    UserId:
+      in: path
+      name: userId
+      description: Unique id of the owner of the resume
+      required: true
+      schema:
+        maxLength: 64
+        type: string
+    ResumeId:
+      in: path
+      name: resumeId
+      description: Unique id of the resume
+      required: true
+      schema:
+        maxLength: 64
+        type: string
 
   responses:
     400ErrorResponse:
       description: Bad Request
-      headers:
-        interaction-id:
-          description: An RFC4122 UID used as a correlation id
-          schema: { type: string }
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     401ErrorResponse:
       description: Unauthorized
-      headers:
-        interaction-id:
-          description: An RFC4122 UID used as a correlation id
-          schema: { type: string }
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     403ErrorResponse:
       description: Forbidden
-      headers:
-        interaction-id:
-          description: An RFC4122 UID used as a correlation id
-          schema: { type: string }
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     404ErrorResponse:
       description: Not Found
-      headers:
-        interaction-id:
-          description: An RFC4122 UID used as a correlation id
-          schema: { type: string }
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     406ErrorResponse:
       description: Not Acceptable
-      headers:
-        interaction-id:
-          description: An RFC4122 UID used as a correlation id
-          schema: { type: string }
       content:
         application/json:
           schema:
@@ -620,8 +696,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    415ErrorResponse:
+      description: Unsupported Media Type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     429ErrorResponse:
       description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    5XXErrorResponse:
+      description: Unexpected Error
       content:
         application/json:
           schema:
