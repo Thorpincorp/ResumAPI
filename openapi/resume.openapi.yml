@@ -150,49 +150,12 @@ paths:
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
-  /resume/{userId}:
-    get:
-      summary: Get Resume
-      tags:
-        - Resume
-      parameters:
-        - $ref: '#/components/parameters/UserId'
-      responses:
-        200:
-          description: Get resource successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Resume'
-        401:
-          $ref: '#/components/responses/401ErrorResponse'
-        403:
-          $ref: '#/components/responses/403ErrorResponse'
-        404:
-          $ref: '#/components/responses/404ErrorResponse'
-        406:
-          $ref: '#/components/responses/406ErrorResponse'
-        429:
-          $ref: '#/components/responses/429ErrorResponse'
-        default:
-          $ref: '#/components/responses/5XXErrorResponse'
 
 components:
   securitySchemes:
     openId:
       type: openIdConnect
       openIdConnectUrl: https://localhost:3000/.well-known/openid-configuration
-
-  parameters:
-    UserId:
-      in: path
-      name: userId
-      description: Unique id of the owner of the resume
-      required: true
-      schema:
-        maxLength: 64
-        type: string
-      example: User01
 
   schemas:
     # JSON Resume Models
@@ -269,8 +232,9 @@ components:
           $ref: '#/components/schemas/ContentBrief'
         label:
           type: string
-          description: e.g. Web Developer
+          example: Web Developer
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         image:
           $ref: '#/components/schemas/URL'
         email:
@@ -278,9 +242,9 @@ components:
         phone:
           type: string
           maxLength: 32
-          description:
-            Phone numbers are stored as strings so use any format you like,
-            e.g. 712-117-2923
+          description: Phone number
+          pattern: ^[0-9-]{1,32}+$
+          example: 712-117-2923
         url:
           $ref: '#/components/schemas/URL'
         summary:
@@ -295,22 +259,27 @@ components:
                 "To add multiple address lines, use \n. For example, 1234
                 Main Street\nCentral Building, Level 2."
               maxLength: 256
+              pattern: ^[\s\S]{0,256}$
             postalCode:
               type: string
               maxLength: 16
+              pattern: ^[\s\S]{0,16}$
             city:
               type: string
               maxLength: 64
+              pattern: ^[\s\S]{0,64}$
             countryCode:
               type: string
               description: code as per ISO-3166-1 ALPHA-2, e.g. US, AU, IN
               maxLength: 2
+              pattern: ^[A-Z]{2}$
             region:
               type: string
               description:
                 The general region where you live. Can be a US state, or
                 a province, for instance.
               maxLength: 64
+              pattern: ^[\s\S]{0,64}$
         profiles:
           type: array
           description: Specify any number of social networks that you participate in
@@ -322,11 +291,13 @@ components:
               network:
                 type: string
                 maxLength: 256
-                description: e.g. Facebook or Twitter
+                example: Facebook or Twitter
+                pattern: ^[\s\S]{0,256}$
               username:
                 type: string
                 maxLength: 256
-                description: e.g. user01
+                example: user01
+                pattern: ^[\s\S]{0,256}$
               url:
                 $ref: '#/components/schemas/URL'
     Work:
@@ -335,20 +306,24 @@ components:
       properties:
         name:
           type: string
-          description: e.g. Facebook
+          example: Facebook
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         location:
           type: string
-          description: e.g. Menlo Park, CA
+          example: Menlo Park, CA
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         description:
           type: string
-          description: e.g. Social Media Company
+          example: Social Media Company
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         position:
           type: string
-          description: e.g. Software Engineer
+          example: Software Engineer
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         url:
           $ref: '#/components/schemas/URL'
         startDate:
@@ -369,12 +344,14 @@ components:
       properties:
         organization:
           type: string
-          description: e.g. Facebook
+          example: Facebook
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         position:
           type: string
-          description: e.g. Software Engineer
+          example: Software Engineer
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         url:
           $ref: '#/components/schemas/URL'
         startDate:
@@ -395,48 +372,56 @@ components:
       properties:
         institution:
           type: string
-          description: e.g. Massachusetts Institute of Technology
+          example: Massachusetts Institute of Technology
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         url:
           $ref: '#/components/schemas/URL'
         area:
           type: string
-          description: e.g. Arts
+          example: Arts
           maxLength: 64
+          pattern: ^[\s\S]{0,64}$
         studyType:
           type: string
-          description: e.g. Bachelor
+          example: Bachelor
           maxLength: 64
+          pattern: ^[\s\S]{0,64}$
         startDate:
           $ref: '#/components/schemas/Date'
         endDate:
           $ref: '#/components/schemas/Date'
         score:
           type: string
-          description: grade point average, e.g. 3.67/4.0
-          maxLength: 32
+          description: GPA scores ranging from 0.00 to 4.00
+          maxLength: 4
+          pattern: ^(?:[0-3](?:\.\d{1,2})?|4(?:\.0{1,2})?)$
+          example: 3.75
         courses:
           type: array
           description: List notable courses/subjects
           maxItems: 128
           items:
             type: string
-            description: e.g. H1302 - Introduction to American history
+            example: H1302 - Introduction to American history
             maxLength: 256
+            pattern: ^[\s\S]{0,256}$
     Award:
       type: object
       additionalProperties: false
       properties:
         title:
           type: string
-          description: e.g. One of the 100 greatest minds of the century
+          example: One of the 100 greatest minds of the century
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         date:
           $ref: '#/components/schemas/Date'
         awarder:
           type: string
-          description: e.g. Time Magazine
+          example: Time Magazine
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         summary:
           $ref: '#/components/schemas/ContentExtended'
     Certificate:
@@ -445,46 +430,53 @@ components:
       properties:
         name:
           type: string
-          description: e.g. Certified Kubernetes Administrator
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+          example: Certified Kubernetes Administrator
         date:
           $ref: '#/components/schemas/Date'
         url:
           $ref: '#/components/schemas/URL'
         issuer:
           type: string
-          description: e.g. CNCF
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+          example: CNCF
     Publication:
       type: object
       additionalProperties: false
       properties:
         name:
           type: string
-          description: e.g. The World Wide Web
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+          example: The World Wide Web
         publisher:
           type: string
-          description: e.g. IEEE, Computer Magazine
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+          example: IEEE, Computer Magazine
         releaseDate:
           $ref: '#/components/schemas/Date'
         url:
           $ref: '#/components/schemas/URL'
         summary:
-         $ref: '#/components/schemas/ContentExtended'
+          $ref: '#/components/schemas/ContentExtended'
     Skill:
       type: object
       additionalProperties: false
       properties:
         name:
           type: string
-          description: e.g. Web Development
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+          example: Web Development
         level:
           type: string
-          description: e.g. Master
+          description: A self evaluated level of proficiency
           maxLength: 32
+          pattern: ^[\s\S]{0,32}$
+          example: Master
         keywords:
           type: array
           maxItems: 128
@@ -498,7 +490,8 @@ components:
         language:
           type: string
           maxLength: 64
-          description: e.g. English, Spanish
+          pattern: ^[a-zA-Z\s()'-]+$
+          example: English
         fluency:
           description: >-
             Language fluency according to the ILR scale
@@ -517,23 +510,27 @@ components:
       properties:
         name:
           type: string
-          description: e.g. Philosophy
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+          example: Philosophy
         keywords:
           type: array
           maxItems: 128
           items:
             type: string
             maxLength: 256
-            description: e.g. Friedrich Nietzsche
+            pattern: ^[\s\S]{0,256}$
+            example: Friedrich Nietzsche
     Reference:
       type: object
       additionalProperties: false
       properties:
         name:
           type: string
-          description: e.g. Timothy Cook
+          description: Person or entity providing a reference
+          example: Timothy Cook
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         reference:
           $ref: '#/components/schemas/ContentExtended'
     Project:
@@ -542,8 +539,9 @@ components:
       properties:
         name:
           type: string
-          description: e.g. The World Wide Web
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+          example: The World Wide Web
         description:
           $ref: '#/components/schemas/ContentBrief'
         highlights:
@@ -576,10 +574,12 @@ components:
             Specify the relevant company/entity affiliations e.g. 'greenpeace',
             'corporationXYZ'
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
         type:
           type: string
-          description: e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'
+          example: volunteering
           maxLength: 256
+          pattern: ^[\s\S]{0,256}$
     # Error Schemas
     Error:
       type: object
@@ -617,7 +617,7 @@ components:
       format: uri
       maxLength: 2048 # RFC 7230
       example: http://example.com/path
-      pattern: ^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$
+      pattern: ^(?:[^:/?#]+:)?(?:\/\/[^/?#]*)?(?:[^?#]*)(?:\?[^#]*)?(?:#.*)?$
     Email:
       type: string
       description: RFC 5321 compliant email string
