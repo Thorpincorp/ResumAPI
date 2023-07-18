@@ -8,8 +8,10 @@ info:
 
 tags:
   - name: Resume
-    description: >-
-      A full json-resume compliant resume for a specific user
+    description: A full json-resume compliant resume for a specific user
+  - name: Resource
+    description: |
+      An individual resource item associated with a users resume. For example, work history
 
 servers:
   - url: https://resume.thorpincorp.com/
@@ -30,7 +32,7 @@ paths:
         - Resume
       responses:
         200:
-          description: Get resume successful
+          description: Successfully retrieved resume
           content:
             application/json:
               schema:
@@ -52,7 +54,6 @@ paths:
       tags:
         - Resume
       requestBody:
-        description: Resume body
         required: true
         content:
           application/json:
@@ -66,7 +67,7 @@ paths:
                 - name: Company Inc.
       responses:
         201:
-          description: Create resource successful
+          description: Successfully created resume
           content:
             application/json:
               schema:
@@ -90,11 +91,10 @@ paths:
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
-      summary: Update Existing Resume
+      summary: Update Resume
       tags:
         - Resume
       requestBody:
-        description: Resume body
         required: true
         content:
           application/json:
@@ -108,7 +108,7 @@ paths:
                 - name: Company Inc.
       responses:
         200:
-          description: Successfully updated resource
+          description: Successfully updated resume
           content:
             application/json:
               schema:
@@ -132,9 +132,1701 @@ paths:
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
-      summary: Delete Users
+      summary: Delete Resume
       tags:
         - Resume
+      responses:
+        204:
+          description: Successfully deleted resume
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /basics:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basics'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Basics'
+            example:
+              name: Juan Doe
+              email: juan.doe@example.com
+              url: juan.example.com
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basics'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /work:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Work'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Work'
+            example:
+              name: Example Company Ltd.
+              location: Main Street, NY
+              position: Chief Executive Officer
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Work'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /work/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Work'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Work'
+            example:
+              name: Example Company Ltd.
+              location: Main Street, NY
+              position: Chief Executive Officer
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Work'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /volunteer:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Volunteer'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Volunteer'
+            example:
+              organization: Samaritans
+              position: Organiser
+              url: https://www.samaritans.org
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volunteer'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /volunteer/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volunteer'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Volunteer'
+            example:
+              organization: Samaritans
+              position: Organiser
+              url: https://www.samaritans.org
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volunteer'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /education:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Education'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Education'
+            example:
+              institution: Harvard University
+              area: Anthropology
+              studyType: Masters
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Education'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /education/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Education'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Education'
+            example:
+              institution: Harvard University
+              area: Anthropology
+              studyType: Masters
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Education'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /awards:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Award'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Award'
+            example:
+              title: Sadosky Prize
+              awarder: Association for Women in Mathematics
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /awards/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Award'
+            example:
+              title: Sadosky Prize
+              awarder: Association for Women in Mathematics
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /certificates:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Certificate'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Certificate'
+            example:
+              name: Professional Cloud Architect
+              issuer: Google
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /certificates/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Certificate'
+            example:
+              name: Professional Cloud Architect
+              issuer: Google
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /publications:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Publication'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publication'
+            example:
+              name: Supercapacitor Assisted LED lighting (SCALED) for DC-micro grids
+              publisher: IEEE
+              releaseDate: 2019-05-20
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /publications/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publication'
+            example:
+              name: Supercapacitor Assisted LED lighting (SCALED) for DC-micro grids
+              publisher: IEEE
+              releaseDate: 2019-05-20
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /skills:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Skill'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill'
+            example:
+              name: Juggling
+              level: Guru
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /skills/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill'
+            example:
+              name: Juggling
+              level: Guru
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /languages:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Language'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Language'
+            example:
+              language: Spanish
+              fluency: Professional working
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Language'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /languages/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Language'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Language'
+            example:
+              language: Spanish
+              fluency: Professional working
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Language'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /interests:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Interest'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Interest'
+            example:
+              name: Minerals
+              keywords:
+                - Rocks
+                - Geology
+                - Gems
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Interest'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /interests/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Interest'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Interest'
+            example:
+              name: Minerals
+              keywords:
+                - Rocks
+                - Geology
+                - Gems
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Interest'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /references:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Reference'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reference'
+            example:
+              name: Li Yu
+              reference: 10/10 would recommend
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reference'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /references/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reference'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reference'
+            example:
+              name: Li Yu
+              reference: 10/10 would recommend
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reference'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        204:
+          description: Successfully deleted resource
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /projects:
+    get:
+      tags:
+        - Resource
+      responses:
+        200:
+          description: Successfully retrieved resources
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 256
+                items:
+                  $ref: '#/components/schemas/Project'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    post:
+      tags:
+        - Resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+            example:
+              name: Spy Cat Flaps
+              description: Uploads spy software to cat microchips to create a mobile network of intel
+      responses:
+        201:
+          description: Successfully created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+  /projects/{id}:
+    get:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    put:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+            example:
+              name: Spy Cat Flaps
+              description: Uploads spy software to cat microchips to create a mobile network of intel
+      responses:
+        200:
+          description: Successfully updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        400:
+          $ref: '#/components/responses/400ErrorResponse'
+        401:
+          $ref: '#/components/responses/401ErrorResponse'
+        403:
+          $ref: '#/components/responses/403ErrorResponse'
+        404:
+          $ref: '#/components/responses/404ErrorResponse'
+        406:
+          $ref: '#/components/responses/406ErrorResponse'
+        409:
+          $ref: '#/components/responses/409ErrorResponse'
+        415:
+          $ref: '#/components/responses/415ErrorResponse'
+        429:
+          $ref: '#/components/responses/429ErrorResponse'
+        default:
+          $ref: '#/components/responses/5XXErrorResponse'
+    delete:
+      tags:
+        - Resource
+      parameters:
+        - $ref: '#/components/parameters/id'
       responses:
         204:
           description: Successfully deleted resource
@@ -156,6 +1848,18 @@ components:
     openId:
       type: openIdConnect
       openIdConnectUrl: https://localhost:3000/.well-known/openid-configuration
+
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Unique id or index of a resource in an array of resources
+      required: true
+      schema:
+        type: string
+        maxLength: 32
+        pattern: ^[\w\-]+$
+        example: 1234_123-id
 
   schemas:
     # JSON Resume Models
@@ -396,7 +2100,7 @@ components:
           description: GPA scores ranging from 0.00 to 4.00
           maxLength: 4
           pattern: ^(?:[0-3](?:\.\d{1,2})?|4(?:\.0{1,2})?)$
-          example: 3.75
+          example: '3.75'
         courses:
           type: array
           description: List notable courses/subjects
@@ -441,7 +2145,7 @@ components:
           type: string
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
-          example: CNCF
+          example: Cloud Native Computing Foundation
     Publication:
       type: object
       additionalProperties: false
