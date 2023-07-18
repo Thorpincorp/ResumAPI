@@ -14,9 +14,11 @@ tags:
 servers:
   - url: https://resume.thorpincorp.com/
     description: Production resume API server
+  - url: https://localhost:3000/
+    description: Production resume API server
 
 security:
-  - OAuth:
+  - openId:
       - read
       - write
 
@@ -177,15 +179,9 @@ paths:
 
 components:
   securitySchemes:
-    OAuth:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: /oauth/authorize
-          tokenUrl: /oauth/token
-          scopes:
-            read: Read resumes
-            write: Modify resume
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://localhost:3000/.well-known/openid-configuration
 
   parameters:
     UserId:
@@ -647,51 +643,95 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/bad-request
+            title: You have submitted a bad request
+            status: 400
+            detail: Request body has invalid parameter "param" on path request.body.key[0].value
     401ErrorResponse:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/unauthorized
+            title: User is not authorized to access this endpoint
+            status: 401
     403ErrorResponse:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/out-of-credit
+            title: You do not have enough credit
+            detail: Your current balance is 30, but that costs 50.
+            status: 403
+            instance: /account/12345/msgs/abc
     404ErrorResponse:
       description: Not Found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/not-found
+            title: Resource not found
+            status: 404
+            instance: /not/a/real/path
     406ErrorResponse:
       description: Not Acceptable
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/not-acceptable
+            title: Not Acceptable
+            detail: The requested resource cannot be served in any acceptable format
+            status: 406
     409ErrorResponse:
       description: Conflict
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/resource-conflict
+            title: Conflict
+            detail: The request could not be completed due to a conflict with the current state of the target resource.
+            status: 409
     415ErrorResponse:
       description: Unsupported Media Type
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/unsupported-media-type
+            title: Unsupported Media Type
+            detail: The server does not support the media type requested in the request.
+            status: 415
     429ErrorResponse:
       description: Too Many Requests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/too-many-requests
+            title: Too Many Requests
+            detail: The user has sent too many requests in a given amount of time.
+            status: 429
     5XXErrorResponse:
       description: Unexpected Error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            type: https://example.com/errors/unexpected
+            title: Unexpected Error
+            status: 500
