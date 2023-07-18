@@ -2369,11 +2369,11 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
           example:
-            type: https://example.com/errors/out-of-credit
-            title: You do not have enough credit
-            detail: Your current balance is 30, but that costs 50.
+            type: https://example.com/errors/forbidden
+            title: User does not have permission to modify this resource
+            detail: User is only authorized to read resources on this endpoint
             status: 403
-            instance: /account/12345/msgs/abc
+            instance: /work/1
     404ErrorResponse:
       description: Not Found
       content:
