@@ -1,4 +1,4 @@
-openapi: '3.0.3'
+openapi: 3.0.0
 info:
   title: ResumeAPI
   description: >-
@@ -10,19 +10,21 @@ tags:
   - name: Resume
     description: A full json-resume compliant resume for a specific user
   - name: Resource
-    description: |
+    description: >-
       An individual resource item associated with a users resume. For example, work history
 
 servers:
   - url: https://resume.thorpincorp.com/
     description: Production resume API server
   - url: https://localhost:3000/
-    description: Production resume API server
+    description: Local development server
 
 security:
-  - openId:
-      - read
-      - write
+  - ResumapiSecurityScheme:
+      - resume:read
+      - resume:write
+      - resource:read
+      - resource:write
 
 paths:
   /resume:
@@ -30,6 +32,9 @@ paths:
       summary: Get Resume
       tags:
         - Resume
+      security:
+        - ResumapiSecurityScheme:
+            - resume:read
       responses:
         200:
           description: Successfully retrieved resume
@@ -53,6 +58,9 @@ paths:
       summary: Create Resume
       tags:
         - Resume
+      security:
+        - ResumapiSecurityScheme:
+            - resume:write
       requestBody:
         required: true
         content:
@@ -94,6 +102,9 @@ paths:
       summary: Update Resume
       tags:
         - Resume
+      security:
+        - ResumapiSecurityScheme:
+            - resume:write
       requestBody:
         required: true
         content:
@@ -135,6 +146,9 @@ paths:
       summary: Delete Resume
       tags:
         - Resume
+      security:
+        - ResumapiSecurityScheme:
+            - resume:write
       responses:
         204:
           description: Successfully deleted resume
@@ -154,6 +168,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -176,6 +193,9 @@ paths:
     put:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -215,6 +235,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -240,6 +263,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -281,6 +307,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -305,6 +334,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -345,6 +377,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -364,6 +399,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -389,6 +427,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -430,6 +471,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -454,6 +498,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -494,6 +541,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -513,6 +563,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -538,6 +591,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -579,6 +635,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -603,6 +662,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -643,6 +705,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -662,6 +727,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -687,6 +755,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -727,6 +798,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -751,6 +825,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -790,6 +867,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -809,6 +889,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -834,6 +917,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -874,6 +960,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -898,6 +987,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -937,6 +1029,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -956,6 +1051,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -981,6 +1079,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1022,6 +1123,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -1046,6 +1150,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1086,6 +1193,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -1105,6 +1215,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -1130,6 +1243,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1170,6 +1286,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -1194,6 +1313,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1233,6 +1355,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -1252,6 +1377,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -1277,6 +1405,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1317,6 +1448,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -1341,6 +1475,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1380,6 +1517,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -1399,6 +1539,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -1424,6 +1567,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1467,6 +1613,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -1491,6 +1640,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1533,6 +1685,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -1552,6 +1707,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -1577,6 +1735,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1617,6 +1778,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -1641,6 +1805,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1680,6 +1847,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -1699,6 +1869,9 @@ paths:
     get:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resources
@@ -1724,6 +1897,9 @@ paths:
     post:
       tags:
         - Resource
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1764,6 +1940,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:read
       responses:
         200:
           description: Successfully retrieved resource
@@ -1788,6 +1967,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       requestBody:
         required: true
         content:
@@ -1827,6 +2009,9 @@ paths:
         - Resource
       parameters:
         - $ref: '#/components/parameters/id'
+      security:
+        - ResumapiSecurityScheme:
+            - resource:write
       responses:
         204:
           description: Successfully deleted resource
@@ -1845,9 +2030,16 @@ paths:
 
 components:
   securitySchemes:
-    openId:
-      type: openIdConnect
-      openIdConnectUrl: https://localhost:3000/.well-known/openid-configuration
+    ResumapiSecurityScheme:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/token
+          scopes:
+            resume:read: Read resume
+            resume:write: Modify or delete resume
+            resource:read: Read resume data
+            resource:write: Create or update resume data
 
   parameters:
     id:
@@ -1928,6 +2120,62 @@ components:
           maxItems: 128
           items:
             $ref: '#/components/schemas/Project'
+      example:
+        basics:
+          name: Nicholas Thorp
+          label: Software Integrations Engineer
+          image: https://api.multiavatar.com/NicholasAndrewThorp.png
+          email: nicholas.thorp@thorpincorp.com
+          url: https://thorpincorp.com
+          summary: I am an API developer :)
+          profiles:
+            - network: Linkedin
+              username: nic-thorp
+              url: https://linkedin.com/nic-thorp
+        languages:
+          - language: English
+            fluency: Native or bilingual
+        projects:
+          - name: JSON Resume API
+            description: >-
+              Leverage the json-resume community driven open source standard to develop
+              a low-cost, cloud hosted, API fronted resume, that can be served by a static frontend
+            keywords:
+              - nodejs
+              - reactjs
+              - openapi
+              - mongodb
+              - google cloud platform
+              - google cloud storage
+              - google cloud functions
+              - oauth2
+              - lerna
+              - nx
+              - git
+              - gitlab
+              - netlify
+              - postman
+              - json
+              - docker
+              - docker-compose
+              - expressjs
+              - oauth2
+              - cloud dns
+              - gcp
+              - json-resume
+              - npm
+              - microservices
+              - markdown
+              - macos
+              - html
+              - css
+            startDate: '2022-02-18'
+            url: https://resume.thorpincorp.com
+            roles:
+              - Full-Stack Developer
+              - Software Architect
+              - Integrations Engineer
+            entity: Thorpincorp
     Basics:
       type: object
       additionalProperties: false
@@ -1959,9 +2207,9 @@ components:
           properties:
             address:
               type: string
-              description:
-                "To add multiple address lines, use \n. For example, 1234
-                Main Street\nCentral Building, Level 2."
+              description: >-
+                To add multiple address lines, use \n. For example, 1234
+                Main Street\nCentral Building, Level 2.
               maxLength: 256
               pattern: ^[\s\S]{0,256}$
             postalCode:
@@ -1979,7 +2227,7 @@ components:
               pattern: ^[A-Z]{2}$
             region:
               type: string
-              description:
+              description: >-
                 The general region where you live. Can be a US state, or
                 a province, for instance.
               maxLength: 64
@@ -2004,28 +2252,46 @@ components:
                 pattern: ^[\s\S]{0,256}$
               url:
                 $ref: '#/components/schemas/URL'
+      example:
+        name: Jane Doe
+        label: Business Accountant
+        image: https://api.multiavatar.com/JaneDoe.png
+        email: jane.doe@example.com
+        phone: '+55555555'
+        url: jane.example.com
+        summary: 'A person with a really real work history!'
+        location:
+          address: 123 Fake street
+          postalCode: '0001'
+          city: Yorkton
+          countryCode: CA
+          region: Saskatchewan
+        profiles:
+          - network: MySpace
+            username: definitely-real-jane
+            url: https://jane.example.com/definitely-real-jane
     Work:
       type: object
       additionalProperties: false
       properties:
         name:
           type: string
-          example: Facebook
+          example: Real Company Inc.
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
         location:
           type: string
-          example: Menlo Park, CA
+          example: North Lazaro, Minnesota, United States
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
         description:
           type: string
-          example: Social Media Company
+          example: Making totally real products for real people
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
         position:
           type: string
-          example: Software Engineer
+          example: Product Quality Manager
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
         url:
@@ -2042,18 +2308,22 @@ components:
           maxItems: 128
           items:
             $ref: '#/components/schemas/ContentBrief'
+          example:
+            - Commuting
+            - Time sheets
+            - Lunch breaks
     Volunteer:
       type: object
       additionalProperties: false
       properties:
         organization:
           type: string
-          example: Facebook
+          example: Conservation
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
         position:
           type: string
-          example: Software Engineer
+          example: Tree Planting
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
         url:
@@ -2070,6 +2340,9 @@ components:
           maxItems: 128
           items:
             $ref: '#/components/schemas/ContentBrief'
+          example:
+            - Pulling weeds
+            - Growing Saplings
     Education:
       type: object
       additionalProperties: false
@@ -2232,7 +2505,7 @@ components:
         name:
           type: string
           description: Person or entity providing a reference
-          example: Timothy Cook
+          example: Juanita Deer
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
         reference:
@@ -2274,14 +2547,14 @@ components:
             $ref: '#/components/schemas/ContentBrief'
         entity:
           type: string
-          description:
-            Specify the relevant company/entity affiliations e.g. 'greenpeace',
-            'corporationXYZ'
+          description: Specify the relevant company/entity affiliations e.g. 'greenpeace', 'corporationXYZ'
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
+          example: Personal
         type:
           type: string
-          example: volunteering
+          description: Type of project, i.e. volunteering, presentation, talk, application, conference
+          example: Home Automation
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
     # Error Schemas
@@ -2332,11 +2605,19 @@ components:
     ContentBrief:
       type: string
       description: A short (single line) content entry
+      example: Lorem ipsum dolor sit amet
       maxLength: 128
       pattern: ^[a-zA-Z0-9\s`~!@#$%^&*()-=_+[\]{}|;:'",.<>/?\\]{0,128}$
     ContentExtended:
       type: string
       description: A medium length description or content block
+      example: >-
+        Praesent ac orci pharetra, mattis eros varius, congue arcu.
+        Sed consectetur mi eget libero lacinia efficitur.
+        Fusce id mi et nisi scelerisque pharetra.
+        Nunc sodales ut nunc eu facilisis.
+        Mauris lobortis lectus non tellus iaculis luctus eu at elit.
+        Donec posuere eleifend odio, at convallis purus dapibus sit amet.
       maxLength: 8192
       pattern: ^[a-zA-Z0-9\s`~!@#$%^&*()-=_+[\]{}|;:'",.<>/?\\]{0,8192}$
 
