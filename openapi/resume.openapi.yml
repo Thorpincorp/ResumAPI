@@ -5,18 +5,20 @@ info:
     An API standard for retrieving resumes in JSON format, predominantly aligned with the JSON resume standard:
     https://jsonresume.org/
   version: 1.1.0
+  contact:
+    url: https://support.thorpincorp.com
 
 tags:
   - name: Resume
     description: A full json-resume compliant resume for a specific user
   - name: Resource
-    description: >-
+    description: |
       An individual resource item associated with a users resume. For example, work history
 
 servers:
-  - url: https://resume.thorpincorp.com/
+  - url: https://resume.thorpincorp.com
     description: Production resume API server
-  - url: https://localhost:3000/
+  - url: https://localhost:3000
     description: Local development server
 
 security:
@@ -29,33 +31,35 @@ security:
 paths:
   /resume:
     get:
-      summary: Get Resume
+      operationId: GetResume
+      description: Get full resume
       tags:
         - Resume
       security:
         - ResumapiSecurityScheme:
             - resume:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resume
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Resume'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
-      summary: Create Resume
+      operationId: CreateResume
+      description: Create new resume
       tags:
         - Resume
       security:
@@ -74,32 +78,33 @@ paths:
               work:
                 - name: Company Inc.
       responses:
-        201:
+        '201':
           description: Successfully created resume
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Resume'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
-      summary: Update Resume
+      operationId: UpdateResume
+      description: Update resume
       tags:
         - Resume
       security:
@@ -118,79 +123,84 @@ paths:
               work:
                 - name: Company Inc.
       responses:
-        200:
+        '200':
           description: Successfully updated resume
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Resume'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
-      summary: Delete Resume
+      operationId: DeleteResume
+      description: Delete resume
       tags:
         - Resume
       security:
         - ResumapiSecurityScheme:
             - resume:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resume
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /basics:
     get:
+      operationId: GetBasics
+      description: Get resume summary
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Basics'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateBasics
+      description: Update resume summary
       tags:
         - Resource
       security:
@@ -207,39 +217,41 @@ paths:
               email: juan.doe@example.com
               url: juan.example.com
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Basics'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /work:
     get:
+      operationId: GetWorkEntries
+      description: Get all resume work history entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -248,19 +260,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Work'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateWorkEntry
+      description: Create resume work history entry
       tags:
         - Resource
       security:
@@ -277,32 +291,34 @@ paths:
               location: Main Street, NY
               position: Chief Executive Officer
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Work'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /work/{id}:
     get:
+      operationId: GetWorkEntry
+      description: Get specific resume work history entry
       tags:
         - Resource
       parameters:
@@ -311,25 +327,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Work'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateWorkEntry
+      description: Update specific resume work history entry
       tags:
         - Resource
       parameters:
@@ -348,31 +366,33 @@ paths:
               location: Main Street, NY
               position: Chief Executive Officer
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Work'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteWorkEntry
+      description: Delete specific resume work history entry
       tags:
         - Resource
       parameters:
@@ -381,29 +401,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /volunteer:
     get:
+      operationId: GetVolunteerEntries
+      description: Get all resume volunteering history entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -412,19 +434,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Volunteer'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateVolunteerEntry
+      description: Get specific resume volunteering history entry
       tags:
         - Resource
       security:
@@ -441,32 +465,34 @@ paths:
               position: Organiser
               url: https://www.samaritans.org
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Volunteer'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /volunteer/{id}:
     get:
+      operationId: GetVolunteerEntry
+      description: Get specific resume volunteering history entry
       tags:
         - Resource
       parameters:
@@ -475,25 +501,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Volunteer'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateVolunteerEntry
+      description: Update specific resume volunteering history entry
       tags:
         - Resource
       parameters:
@@ -512,31 +540,33 @@ paths:
               position: Organiser
               url: https://www.samaritans.org
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Volunteer'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteVolunteerEntry
+      description: Delete specific resume volunteering history entry
       tags:
         - Resource
       parameters:
@@ -545,29 +575,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /education:
     get:
+      operationId: GetEducationEntries
+      description: Get all resume education history entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -576,19 +608,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Education'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateEducationEntry
+      description: Create specific resume education history entry
       tags:
         - Resource
       security:
@@ -605,32 +639,34 @@ paths:
               area: Anthropology
               studyType: Masters
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Education'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /education/{id}:
     get:
+      operationId: GetEducationEntry
+      description: Get specific resume education history entry
       tags:
         - Resource
       parameters:
@@ -639,25 +675,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Education'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateEducationEntry
+      description: Update specific resume education history entry
       tags:
         - Resource
       parameters:
@@ -676,31 +714,33 @@ paths:
               area: Anthropology
               studyType: Masters
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Education'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteEducationEntry
+      description: Delete specific resume education history entry
       tags:
         - Resource
       parameters:
@@ -709,29 +749,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /awards:
     get:
+      operationId: GetAwards
+      description: Get all resume award entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -740,19 +782,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Award'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateAwards
+      description: Create a resume award entry
       tags:
         - Resource
       security:
@@ -768,32 +812,34 @@ paths:
               title: Sadosky Prize
               awarder: Association for Women in Mathematics
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Award'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /awards/{id}:
     get:
+      operationId: GetAward
+      description: Get a specific resume award entry
       tags:
         - Resource
       parameters:
@@ -802,25 +848,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Award'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateAward
+      description: Update a specific resume award entry
       tags:
         - Resource
       parameters:
@@ -838,31 +886,33 @@ paths:
               title: Sadosky Prize
               awarder: Association for Women in Mathematics
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Award'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteAward
+      description: Delete a specific resume award entry
       tags:
         - Resource
       parameters:
@@ -871,29 +921,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /certificates:
     get:
+      operationId: GetCertificates
+      description: Get all resume certificate entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -902,19 +954,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Certificate'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateCertificate
+      description: Create a resume certificate entry
       tags:
         - Resource
       security:
@@ -930,32 +984,34 @@ paths:
               name: Professional Cloud Architect
               issuer: Google
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Certificate'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /certificates/{id}:
     get:
+      operationId: GetCertificate
+      description: Get a specific resume certificate entry
       tags:
         - Resource
       parameters:
@@ -964,25 +1020,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Certificate'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateCertificate
+      description: Update a specific resume certificate entry
       tags:
         - Resource
       parameters:
@@ -1000,31 +1058,33 @@ paths:
               name: Professional Cloud Architect
               issuer: Google
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Certificate'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteCertificate
+      description: Delete a specific resume certificate entry
       tags:
         - Resource
       parameters:
@@ -1033,29 +1093,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /publications:
     get:
+      operationId: GetPublications
+      description: Get all resume publication entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -1064,19 +1126,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Publication'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreatePublication
+      description: Create a resume publication entry
       tags:
         - Resource
       security:
@@ -1093,32 +1157,34 @@ paths:
               publisher: IEEE
               releaseDate: 2019-05-20
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Publication'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /publications/{id}:
     get:
+      operationId: GetPublication
+      description: Get a specific resume publication entry
       tags:
         - Resource
       parameters:
@@ -1127,25 +1193,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Publication'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdatePublication
+      description: Update a specific resume publication entry
       tags:
         - Resource
       parameters:
@@ -1164,31 +1232,33 @@ paths:
               publisher: IEEE
               releaseDate: 2019-05-20
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Publication'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeletePublication
+      description: Delete a specific resume publication entry
       tags:
         - Resource
       parameters:
@@ -1197,29 +1267,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /skills:
     get:
+      operationId: GetSkills
+      description: Get all resume skill entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -1228,19 +1300,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Skill'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateSkill
+      description: Create a resume skill entry
       tags:
         - Resource
       security:
@@ -1256,32 +1330,34 @@ paths:
               name: Juggling
               level: Guru
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Skill'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /skills/{id}:
     get:
+      operationId: GetSkill
+      description: Get a specific resume skill entry
       tags:
         - Resource
       parameters:
@@ -1290,25 +1366,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Skill'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateSkill
+      description: Update a specific resume skill entry
       tags:
         - Resource
       parameters:
@@ -1326,31 +1404,33 @@ paths:
               name: Juggling
               level: Guru
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Skill'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteSkill
+      description: Delete a specific resume skill entry
       tags:
         - Resource
       parameters:
@@ -1359,29 +1439,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /languages:
     get:
+      operationId: GetLanguages
+      description: Get all resume language entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -1390,19 +1472,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Language'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateLanguage
+      description: Create a resume language entry
       tags:
         - Resource
       security:
@@ -1418,32 +1502,34 @@ paths:
               language: Spanish
               fluency: Professional working
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Language'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /languages/{id}:
     get:
+      operationId: GetLanguage
+      description: Get a specific resume language entry
       tags:
         - Resource
       parameters:
@@ -1452,25 +1538,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Language'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateLanguage
+      description: Update a specific resume language entry
       tags:
         - Resource
       parameters:
@@ -1488,31 +1576,33 @@ paths:
               language: Spanish
               fluency: Professional working
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Language'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteLanguage
+      description: Delete a specific resume language entry
       tags:
         - Resource
       parameters:
@@ -1521,29 +1611,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /interests:
     get:
+      operationId: GetInterests
+      description: Get all resume interest entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -1552,19 +1644,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Interest'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateInterest
+      description: Create a resume interest entry
       tags:
         - Resource
       security:
@@ -1583,32 +1677,34 @@ paths:
                 - Geology
                 - Gems
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Interest'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /interests/{id}:
     get:
+      operationId: GetInterest
+      description: Get a specific resume interest entry
       tags:
         - Resource
       parameters:
@@ -1617,25 +1713,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Interest'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateInterest
+      description: Update a specific resume interest entry
       tags:
         - Resource
       parameters:
@@ -1656,31 +1754,33 @@ paths:
                 - Geology
                 - Gems
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Interest'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteInterest
+      description: Delete a specific resume interest entry
       tags:
         - Resource
       parameters:
@@ -1689,29 +1789,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /references:
     get:
+      operationId: GetReferences
+      description: Get all resume reference entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -1720,19 +1822,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Reference'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateReference
+      description: Create a resume reference entry
       tags:
         - Resource
       security:
@@ -1748,32 +1852,34 @@ paths:
               name: Li Yu
               reference: 10/10 would recommend
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Reference'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /references/{id}:
     get:
+      operationId: GetReference
+      description: Get a specific resume reference entry
       tags:
         - Resource
       parameters:
@@ -1782,25 +1888,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Reference'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateReference
+      description: Update a specific resume reference entry
       tags:
         - Resource
       parameters:
@@ -1818,31 +1926,33 @@ paths:
               name: Li Yu
               reference: 10/10 would recommend
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Reference'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteReference
+      description: Delete a specific resume reference entry
       tags:
         - Resource
       parameters:
@@ -1851,29 +1961,31 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /projects:
     get:
+      operationId: GetProjects
+      description: Get all resume project entries
       tags:
         - Resource
       security:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resources
           content:
             application/json:
@@ -1882,19 +1994,21 @@ paths:
                 maxItems: 256
                 items:
                   $ref: '#/components/schemas/Project'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     post:
+      operationId: CreateProject
+      description: Create a resume project entry
       tags:
         - Resource
       security:
@@ -1910,32 +2024,34 @@ paths:
               name: Spy Cat Flaps
               description: Uploads spy software to cat microchips to create a mobile network of intel
       responses:
-        201:
+        '201':
           description: Successfully created resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
   /projects/{id}:
     get:
+      operationId: GetProject
+      description: Get a specific resume project entry
       tags:
         - Resource
       parameters:
@@ -1944,25 +2060,27 @@ paths:
         - ResumapiSecurityScheme:
             - resource:read
       responses:
-        200:
+        '200':
           description: Successfully retrieved resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     put:
+      operationId: UpdateProject
+      description: Update a specific resume project entry
       tags:
         - Resource
       parameters:
@@ -1980,31 +2098,33 @@ paths:
               name: Spy Cat Flaps
               description: Uploads spy software to cat microchips to create a mobile network of intel
       responses:
-        200:
+        '200':
           description: Successfully updated resource
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
-        400:
+        '400':
           $ref: '#/components/responses/400ErrorResponse'
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        409:
+        '409':
           $ref: '#/components/responses/409ErrorResponse'
-        415:
+        '415':
           $ref: '#/components/responses/415ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
     delete:
+      operationId: DeleteProject
+      description: Delete a specific resume project entry
       tags:
         - Resource
       parameters:
@@ -2013,17 +2133,17 @@ paths:
         - ResumapiSecurityScheme:
             - resource:write
       responses:
-        204:
+        '204':
           description: Successfully deleted resource
-        401:
+        '401':
           $ref: '#/components/responses/401ErrorResponse'
-        403:
+        '403':
           $ref: '#/components/responses/403ErrorResponse'
-        404:
+        '404':
           $ref: '#/components/responses/404ErrorResponse'
-        406:
+        '406':
           $ref: '#/components/responses/406ErrorResponse'
-        429:
+        '429':
           $ref: '#/components/responses/429ErrorResponse'
         default:
           $ref: '#/components/responses/5XXErrorResponse'
@@ -2126,6 +2246,7 @@ components:
           label: Software Integrations Engineer
           image: https://api.multiavatar.com/NicholasAndrewThorp.png
           email: nicholas.thorp@thorpincorp.com
+          phone: '***REMOVED***'
           url: https://thorpincorp.com
           summary: I am an API developer :)
           profiles:
@@ -2195,8 +2316,8 @@ components:
           type: string
           maxLength: 32
           description: Phone number
-          pattern: ^[0-9-]{1,32}+$
-          example: 712-117-2923
+          pattern: ^[0-9-+ ]{1,32}$
+          example: +32 712-117-2923
         url:
           $ref: '#/components/schemas/URL'
         summary:
@@ -2207,9 +2328,9 @@ components:
           properties:
             address:
               type: string
-              description: >-
-                To add multiple address lines, use \n. For example, 1234
-                Main Street\nCentral Building, Level 2.
+              description:
+                "To add multiple address lines, use \n. For example, 1234
+                Main Street\nCentral Building, Level 2."
               maxLength: 256
               pattern: ^[\s\S]{0,256}$
             postalCode:
@@ -2227,7 +2348,7 @@ components:
               pattern: ^[A-Z]{2}$
             region:
               type: string
-              description: >-
+              description:
                 The general region where you live. Can be a US state, or
                 a province, for instance.
               maxLength: 64
@@ -2258,7 +2379,7 @@ components:
         image: https://api.multiavatar.com/JaneDoe.png
         email: jane.doe@example.com
         phone: '+55555555'
-        url: jane.example.com
+        url: https://jane.example.com
         summary: 'A person with a really real work history!'
         location:
           address: 123 Fake street
@@ -2520,7 +2641,7 @@ components:
           pattern: ^[\s\S]{0,256}$
           example: The World Wide Web
         description:
-          $ref: '#/components/schemas/ContentBrief'
+          $ref: '#/components/schemas/ContentExtended'
         highlights:
           type: array
           description: Specify multiple project highlights
@@ -2547,7 +2668,9 @@ components:
             $ref: '#/components/schemas/ContentBrief'
         entity:
           type: string
-          description: Specify the relevant company/entity affiliations e.g. 'greenpeace', 'corporationXYZ'
+          description:
+            Specify the relevant company/entity affiliations e.g. 'greenpeace',
+            'corporationXYZ'
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
           example: Personal
@@ -2586,12 +2709,13 @@ components:
       format: date
       description: RFC3339 compliant date string
       maxLength: 32
-      example: 2020-28-12
+      example: 2020-12-28
       pattern: ^\d{4}-\d{2}-\d{2}$
     URL:
       type: string
       description: RFC 3986 compliant URL string
-      format: uri
+      # Not supported until OpenAPI v3.1.0 https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#relativeReferencesURI
+      # format: uri
       maxLength: 2048 # RFC 7230
       example: http://example.com/path
       pattern: ^(?:[^:/?#]+:)?(?:\/\/[^/?#]*)?(?:[^?#]*)(?:\?[^#]*)?(?:#.*)?$

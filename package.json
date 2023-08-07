@@ -1,0 +1,10 @@
+{
+  "name": "resumopenapi",
+  "packageManager": "yarn@3.6.1",
+  "devDependencies": {
+    "@stoplight/spectral-cli": "^6.10.1"
+  },
+  "scripts": {
+    "lint": "spectral lint openapi/*"
+  }
+}
