@@ -12,7 +12,7 @@ tags:
   - name: Resume
     description: A full json-resume compliant resume for a specific user
   - name: Resource
-    description: |
+    description: >-
       An individual resource item associated with a users resume. For example, work history
 
 servers:
@@ -2178,7 +2178,7 @@ components:
     Resume:
       type: object
       additionalProperties: false
-      description: |
+      description: >-
         https://github.com/jsonresume/resume-schema/blob/master/schema.json
       required:
         - basics
@@ -2328,9 +2328,9 @@ components:
           properties:
             address:
               type: string
-              description:
-                "To add multiple address lines, use \n. For example, 1234
-                Main Street\nCentral Building, Level 2."
+              description: >-
+                To add multiple address lines, use \n.
+                For example, 1234 Main Street\nCentral Building, Level 2.
               maxLength: 256
               pattern: ^[\s\S]{0,256}$
             postalCode:
@@ -2348,7 +2348,7 @@ components:
               pattern: ^[A-Z]{2}$
             region:
               type: string
-              description:
+              description: >-
                 The general region where you live. Can be a US state, or
                 a province, for instance.
               maxLength: 64
@@ -2668,7 +2668,7 @@ components:
             $ref: '#/components/schemas/ContentBrief'
         entity:
           type: string
-          description:
+          description: >-
             Specify the relevant company/entity affiliations e.g. 'greenpeace',
             'corporationXYZ'
           maxLength: 256

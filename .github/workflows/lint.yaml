@@ -24,13 +24,3 @@ jobs:
         
       - name: Run Spectral Linter
         run: yarn lint
-        
-      - name: Update status badge
-        if: ${{ success() }}
-        run: |
-          echo "[![Lint](https://github.com/slatei/ResumAPI/actions/workflows/lint.yml/badge.svg)](https://github.com/slatei/ResumAPI/actions/workflows/lint.yml)" > badge.md
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
-          git add badge.md
-          git commit -m "Update status badge"
-          git push
