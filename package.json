@@ -1,8 +1,12 @@
 {
   "name": "resumopenapi",
   "packageManager": "yarn@3.6.1",
+  "private": true,
   "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "@stoplight/spectral-cli": "^6.10.1",
+    "husky": "^8.0.0",
     "prettier": "^3.0.1"
   },
   "prettier": {
@@ -14,6 +18,22 @@
     "trailingComma": "all"
   },
   "scripts": {
-    "lint": "spectral lint openapi/*"
+    "lint": "spectral lint openapi/*",
+    "postinstall": "husky install"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [
+        2,
+        "never",
+        [
+          "start-case",
+          "pascal-case"
+        ]
+      ]
+    }
   }
 }
