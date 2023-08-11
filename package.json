@@ -2,7 +2,16 @@
   "name": "resumopenapi",
   "packageManager": "yarn@3.6.1",
   "devDependencies": {
-    "@stoplight/spectral-cli": "^6.10.1"
+    "@stoplight/spectral-cli": "^6.10.1",
+    "prettier": "^3.0.1"
+  },
+  "prettier": {
+    "editorconfig": true,
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all"
   },
   "scripts": {
     "lint": "spectral lint openapi/*"

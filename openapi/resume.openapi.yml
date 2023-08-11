@@ -2,9 +2,9 @@ openapi: 3.0.0
 info:
   title: ResumeAPI
   description: >-
-    An API standard for retrieving resumes in JSON format, predominantly aligned with the JSON resume standard:
+    An API standard for retrieving resumes in JSON format, conformant with the JSON resume standard:
     https://jsonresume.org/
-  version: 1.1.0
+  version: 1.2.0
   contact:
     url: https://support.thorpincorp.com
 
@@ -73,10 +73,61 @@ paths:
               $ref: '#/components/schemas/Resume'
             example:
               basics:
-                name: John Doe
-                label: Human Resources
-              work:
-                - name: Company Inc.
+                name: Nicholas Thorp
+                label: Software Integrations Engineer
+                image: https://api.multiavatar.com/NicholasAndrewThorp.png
+                email: nicholas.thorp@thorpincorp.com
+                phone: '***REMOVED***'
+                url: https://thorpincorp.com
+                summary: I am an API developer :)
+                profiles:
+                  - network: Linkedin
+                    username: nic-thorp
+                    url: https://linkedin.com/nic-thorp
+              languages:
+                - language: English
+                  fluency: Native or bilingual
+              projects:
+                - name: JSON Resume API
+                  description: >-
+                    Leverage the json-resume community driven open source standard to develop
+                    a low-cost, cloud hosted, API fronted resume, that can be served by a static frontend
+                  keywords:
+                    - nodejs
+                    - reactjs
+                    - openapi
+                    - mongodb
+                    - google cloud platform
+                    - google cloud storage
+                    - google cloud functions
+                    - oauth2
+                    - lerna
+                    - nx
+                    - git
+                    - gitlab
+                    - netlify
+                    - postman
+                    - json
+                    - docker
+                    - docker-compose
+                    - expressjs
+                    - oauth2
+                    - cloud dns
+                    - gcp
+                    - json-resume
+                    - npm
+                    - microservices
+                    - markdown
+                    - macos
+                    - html
+                    - css
+                  startDate: '2022-02-18'
+                  url: https://resume.thorpincorp.com
+                  roles:
+                    - Full-Stack Developer
+                    - Software Architect
+                    - Integrations Engineer
+                  entity: Thorpincorp
       responses:
         '201':
           description: Successfully created resume
@@ -2165,13 +2216,10 @@ components:
     id:
       name: id
       in: path
-      description: Unique id or index of a resource in an array of resources
+      description: Unique id or index of the resource
       required: true
       schema:
-        type: string
-        maxLength: 32
-        pattern: ^[\w\-]+$
-        example: 1234_123-id
+        $ref: "#/components/schemas/ResourceId"
 
   schemas:
     # JSON Resume Models
@@ -2240,63 +2288,6 @@ components:
           maxItems: 128
           items:
             $ref: '#/components/schemas/Project'
-      example:
-        basics:
-          name: Nicholas Thorp
-          label: Software Integrations Engineer
-          image: https://api.multiavatar.com/NicholasAndrewThorp.png
-          email: nicholas.thorp@thorpincorp.com
-          phone: '***REMOVED***'
-          url: https://thorpincorp.com
-          summary: I am an API developer :)
-          profiles:
-            - network: Linkedin
-              username: nic-thorp
-              url: https://linkedin.com/nic-thorp
-        languages:
-          - language: English
-            fluency: Native or bilingual
-        projects:
-          - name: JSON Resume API
-            description: >-
-              Leverage the json-resume community driven open source standard to develop
-              a low-cost, cloud hosted, API fronted resume, that can be served by a static frontend
-            keywords:
-              - nodejs
-              - reactjs
-              - openapi
-              - mongodb
-              - google cloud platform
-              - google cloud storage
-              - google cloud functions
-              - oauth2
-              - lerna
-              - nx
-              - git
-              - gitlab
-              - netlify
-              - postman
-              - json
-              - docker
-              - docker-compose
-              - expressjs
-              - oauth2
-              - cloud dns
-              - gcp
-              - json-resume
-              - npm
-              - microservices
-              - markdown
-              - macos
-              - html
-              - css
-            startDate: '2022-02-18'
-            url: https://resume.thorpincorp.com
-            roles:
-              - Full-Stack Developer
-              - Software Architect
-              - Integrations Engineer
-            entity: Thorpincorp
     Basics:
       type: object
       additionalProperties: false
@@ -2304,10 +2295,7 @@ components:
         name:
           $ref: '#/components/schemas/ContentBrief'
         label:
-          type: string
-          example: Web Developer
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         image:
           $ref: '#/components/schemas/URL'
         email:
@@ -2327,12 +2315,7 @@ components:
           additionalProperties: false
           properties:
             address:
-              type: string
-              description: >-
-                To add multiple address lines, use \n.
-                For example, 1234 Main Street\nCentral Building, Level 2.
-              maxLength: 256
-              pattern: ^[\s\S]{0,256}$
+               $ref: '#/components/schemas/Name'
             postalCode:
               type: string
               maxLength: 16
@@ -2362,15 +2345,9 @@ components:
             additionalProperties: false
             properties:
               network:
-                type: string
-                maxLength: 256
-                example: Facebook or Twitter
-                pattern: ^[\s\S]{0,256}$
+                 $ref: '#/components/schemas/Name'
               username:
-                type: string
-                maxLength: 256
-                example: user01
-                pattern: ^[\s\S]{0,256}$
+                 $ref: '#/components/schemas/Name'
               url:
                 $ref: '#/components/schemas/URL'
       example:
@@ -2394,27 +2371,27 @@ components:
     Work:
       type: object
       additionalProperties: false
+      example:
+        name: Real Company Inc.
+        location: North Lazaro, Minnesota, United States
+        description: Company specialising in making things
+        position: Product Quality Manager
+        url: https://www.example.com
+        startDate: 2000-01-01
+        endDate: 2012-12-31
+        summary: In charge of ensuring things were made.
+        highlights:
+          - Making Things
+          - Quality Assurance
       properties:
         name:
-          type: string
-          example: Real Company Inc.
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         location:
-          type: string
-          example: North Lazaro, Minnesota, United States
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         description:
-          type: string
-          example: Making totally real products for real people
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/ContentExtended'
         position:
-          type: string
-          example: Product Quality Manager
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         url:
           $ref: '#/components/schemas/URL'
         startDate:
@@ -2424,29 +2401,26 @@ components:
         summary:
           $ref: '#/components/schemas/ContentExtended'
         highlights:
-          type: array
-          description: Specify multiple accomplishments
-          maxItems: 128
-          items:
-            $ref: '#/components/schemas/ContentBrief'
-          example:
-            - Commuting
-            - Time sheets
-            - Lunch breaks
+          $ref: '#/components/schemas/ItemsList'
     Volunteer:
       type: object
       additionalProperties: false
+      example:
+        organization: Conservation Society
+        position: Tree Planter
+        url: https://example.com
+        startDate: 2000-01-01
+        endDate: 2012-12-31
+        summary: Helped plant 100 trees
+        highlights:
+          - Pulling Weeds
+          - Social Engagement
+          - Environmentally Aware
       properties:
         organization:
-          type: string
-          example: Conservation
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         position:
-          type: string
-          example: Tree Planting
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+         $ref: '#/components/schemas/Name'
         url:
           $ref: '#/components/schemas/URL'
         startDate:
@@ -2456,35 +2430,30 @@ components:
         summary:
           $ref: '#/components/schemas/ContentExtended'
         highlights:
-          type: array
-          description: Specify accomplishments and achievements
-          maxItems: 128
-          items:
-            $ref: '#/components/schemas/ContentBrief'
-          example:
-            - Pulling weeds
-            - Growing Saplings
+          $ref: '#/components/schemas/ItemsList'
     Education:
       type: object
       additionalProperties: false
+      example:
+        institution: Massachusetts Institute of Technology
+        url: https://example.com
+        area: Arts
+        studyType: Bachelor
+        startDate: 2000-01-01
+        endDate: 2012-12-31
+        score: '3.75'
+        courses:
+          - H1302 - Introduction to American history
+          - E1102 - Environment Ecology
       properties:
         institution:
-          type: string
-          example: Massachusetts Institute of Technology
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         url:
           $ref: '#/components/schemas/URL'
         area:
-          type: string
-          example: Arts
-          maxLength: 64
-          pattern: ^[\s\S]{0,64}$
+          $ref: '#/components/schemas/ShortName'
         studyType:
-          type: string
-          example: Bachelor
-          maxLength: 64
-          pattern: ^[\s\S]{0,64}$
+          $ref: '#/components/schemas/ShortName'
         startDate:
           $ref: '#/components/schemas/Date'
         endDate:
@@ -2500,60 +2469,55 @@ components:
           description: List notable courses/subjects
           maxItems: 128
           items:
-            type: string
-            example: H1302 - Introduction to American history
-            maxLength: 256
-            pattern: ^[\s\S]{0,256}$
+            $ref: '#/components/schemas/Name'
     Award:
       type: object
       additionalProperties: false
+      example:
+        title: One of the 100 greatest minds of the century
+        date: 2010-01-01
+        awarder: Time Magazine
+        summary: Gifted for planting so many trees
       properties:
         title:
-          type: string
-          example: One of the 100 greatest minds of the century
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         date:
           $ref: '#/components/schemas/Date'
         awarder:
-          type: string
-          example: Time Magazine
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         summary:
           $ref: '#/components/schemas/ContentExtended'
     Certificate:
       type: object
       additionalProperties: false
+      example:
+        name: Certified Kubernetes Administrator
+        date: 2010-01-01
+        url: https://example.com
+        issuer: Cloud Native Computing Foundation
       properties:
         name:
-          type: string
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
-          example: Certified Kubernetes Administrator
+          $ref: '#/components/schemas/Name'
         date:
           $ref: '#/components/schemas/Date'
         url:
           $ref: '#/components/schemas/URL'
         issuer:
-          type: string
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
-          example: Cloud Native Computing Foundation
+          $ref: '#/components/schemas/Name'
     Publication:
       type: object
       additionalProperties: false
+      example:
+        name: The World Wide Web
+        publisher: IEEE, Computer Magazine
+        releaseDate: 2010-01-01
+        url: https://example.com
+        summary: Published as final year journal paper
       properties:
         name:
-          type: string
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
-          example: The World Wide Web
+          $ref: '#/components/schemas/Name'
         publisher:
-          type: string
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
-          example: IEEE, Computer Magazine
+          $ref: '#/components/schemas/Name'
         releaseDate:
           $ref: '#/components/schemas/Date'
         url:
@@ -2563,12 +2527,15 @@ components:
     Skill:
       type: object
       additionalProperties: false
+      example:
+        name: Web Development
+        level: Master
+        keywords:
+          - HTML
+          - CSS
       properties:
         name:
-          type: string
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
-          example: Web Development
+          $ref: '#/components/schemas/Name'
         level:
           type: string
           description: A self evaluated level of proficiency
@@ -2576,11 +2543,7 @@ components:
           pattern: ^[\s\S]{0,32}$
           example: Master
         keywords:
-          type: array
-          maxItems: 128
-          description: List some keywords pertaining to this skill
-          items:
-            $ref: '#/components/schemas/ContentBrief'
+          $ref: '#/components/schemas/ItemsList'
     Language:
       type: object
       additionalProperties: false
@@ -2605,55 +2568,57 @@ components:
     Interest:
       type: object
       additionalProperties: false
+      example:
+        name: Philosophy
+        keywords:
+          - Friedrich Nietzsche
+          - Plato
       properties:
         name:
-          type: string
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
-          example: Philosophy
+          $ref: '#/components/schemas/Name'
         keywords:
-          type: array
-          maxItems: 128
-          items:
-            type: string
-            maxLength: 256
-            pattern: ^[\s\S]{0,256}$
-            example: Friedrich Nietzsche
+          $ref: '#/components/schemas/ItemsList'
     Reference:
       type: object
       additionalProperties: false
+      example:
+        name: Juanita Deer
+        reference: >-
+          Jane Doe is a very dedicated and hard worker. They have an odd fascination with trees.
+          10/10 worker, you should hire them.
       properties:
         name:
-          type: string
-          description: Person or entity providing a reference
-          example: Juanita Deer
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
+          $ref: '#/components/schemas/Name'
         reference:
           $ref: '#/components/schemas/ContentExtended'
     Project:
       type: object
       additionalProperties: false
+      example:
+        name: The World Wide Web
+        description: A global system of interconnected computer networks that uses the Internet protocol suite (TCP/IP)
+        highlights:
+          - Got to meet Tim Berners-Lee
+        keywords:
+          - Browser
+          - IP Address
+        startDate: 1994-10-03
+        endDate: 1994-10-04
+        url: https://www.example.com
+        roles:
+          - Developer
+          - Consultant
+        entity: CERN
+        type: Hobby
       properties:
         name:
-          type: string
-          maxLength: 256
-          pattern: ^[\s\S]{0,256}$
-          example: The World Wide Web
+          $ref: '#/components/schemas/Name'
         description:
           $ref: '#/components/schemas/ContentExtended'
         highlights:
-          type: array
-          description: Specify multiple project highlights
-          maxItems: 128
-          items:
-            $ref: '#/components/schemas/ContentBrief'
+          $ref: '#/components/schemas/ItemsList'
         keywords:
-          type: array
-          description: Specify special elements involved
-          maxItems: 128
-          items:
-            $ref: '#/components/schemas/ContentBrief'
+          $ref: '#/components/schemas/ItemsList'
         startDate:
           $ref: '#/components/schemas/Date'
         endDate:
@@ -2668,12 +2633,10 @@ components:
             $ref: '#/components/schemas/ContentBrief'
         entity:
           type: string
-          description: >-
-            Specify the relevant company/entity affiliations e.g. 'greenpeace',
-            'corporationXYZ'
+          description: Specify the relevant company/entity affiliations e.g. Greenpeace, ExxonMobil
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
-          example: Personal
+          example: Corporation XYZ
         type:
           type: string
           description: Type of project, i.e. volunteering, presentation, talk, application, conference
@@ -2703,7 +2666,7 @@ components:
           $ref: '#/components/schemas/ContentExtended'
         instance:
           $ref: '#/components/schemas/URL'
-    # Generic reusable schemas
+    # Generic reusable resume resource schemas
     Date:
       type: string
       format: date
@@ -2711,6 +2674,14 @@ components:
       maxLength: 32
       example: 2020-12-28
       pattern: ^\d{4}-\d{2}-\d{2}$
+    ShortName:
+      type: string
+      maxLength: 64
+      pattern: ^[\s\S]{0,64}$
+    Name:
+      type: string
+      maxLength: 256
+      pattern: ^[\s\S]{0,256}$
     URL:
       type: string
       description: RFC 3986 compliant URL string
@@ -2726,12 +2697,17 @@ components:
       maxLength: 254
       example: user@gmail.com
       pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+    ItemsList:
+      type: array
+      maxItems: 128
+      items:
+        $ref: '#/components/schemas/ContentBrief'
     ContentBrief:
       type: string
       description: A short (single line) content entry
       example: Lorem ipsum dolor sit amet
-      maxLength: 128
-      pattern: ^[a-zA-Z0-9\s`~!@#$%^&*()-=_+[\]{}|;:'",.<>/?\\]{0,128}$
+      maxLength: 256
+      pattern: ^[a-zA-Z0-9\s`~!@#$%^&*()-=_+[\]{}|;:'",.<>/?\\]{0,256}$
     ContentExtended:
       type: string
       description: A medium length description or content block
@@ -2744,6 +2720,19 @@ components:
         Donec posuere eleifend odio, at convallis purus dapibus sit amet.
       maxLength: 8192
       pattern: ^[a-zA-Z0-9\s`~!@#$%^&*()-=_+[\]{}|;:'",.<>/?\\]{0,8192}$
+    ResourceId:
+      type: string
+      readOnly: true  # Mark the property as read-only
+      description: >-
+        Any identifier that can be used to uniquely identify the resource.
+
+        The resource pattern has been defined to support a range of patterns including:
+          - Any alphanumeric character set, suitable for hex encoded strings
+          - Support for dashes, allowing UUID strings
+          - Support for all characters found in valid base64 encoded strings
+      example: dfa47f83-6eac-408b-af5a-5ee3e079ea81
+      maxLength: 64
+      pattern: ^[A-Za-z0-9_\-+\/=]{1,64}$
 
   responses:
     400ErrorResponse:
