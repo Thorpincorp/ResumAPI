@@ -4,7 +4,7 @@ info:
   description: >-
     An API standard for retrieving resumes in JSON format, conformant with the JSON resume standard:
     https://jsonresume.org/
-  version: 1.2.0
+  version: 1.3.0
   contact:
     url: https://support.thorpincorp.com
 
@@ -310,7 +310,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Work'
+                  $ref: '#/components/schemas/WorkId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -347,7 +347,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Work'
+                $ref: '#/components/schemas/WorkId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -383,7 +383,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Work'
+                $ref: '#/components/schemas/WorkId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -422,7 +422,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Work'
+                $ref: '#/components/schemas/WorkId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -484,7 +484,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Volunteer'
+                  $ref: '#/components/schemas/VolunteerId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -521,7 +521,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Volunteer'
+                $ref: '#/components/schemas/VolunteerId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -557,7 +557,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Volunteer'
+                $ref: '#/components/schemas/VolunteerId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -596,7 +596,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Volunteer'
+                $ref: '#/components/schemas/VolunteerId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -658,7 +658,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Education'
+                  $ref: '#/components/schemas/EducationId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -695,7 +695,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Education'
+                $ref: '#/components/schemas/EducationId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -731,7 +731,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Education'
+                $ref: '#/components/schemas/EducationId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -770,7 +770,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Education'
+                $ref: '#/components/schemas/EducationId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -832,7 +832,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Award'
+                  $ref: '#/components/schemas/AwardId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -868,7 +868,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Award'
+                $ref: '#/components/schemas/AwardId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -904,7 +904,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Award'
+                $ref: '#/components/schemas/AwardId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -942,7 +942,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Award'
+                $ref: '#/components/schemas/AwardId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1004,7 +1004,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Certificate'
+                  $ref: '#/components/schemas/CertificateId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1040,7 +1040,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Certificate'
+                $ref: '#/components/schemas/CertificateId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1076,7 +1076,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Certificate'
+                $ref: '#/components/schemas/CertificateId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1114,7 +1114,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Certificate'
+                $ref: '#/components/schemas/CertificateId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1176,7 +1176,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Publication'
+                  $ref: '#/components/schemas/PublicationId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1213,7 +1213,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Publication'
+                $ref: '#/components/schemas/PublicationId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1249,7 +1249,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Publication'
+                $ref: '#/components/schemas/PublicationId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1288,7 +1288,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Publication'
+                $ref: '#/components/schemas/PublicationId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1350,7 +1350,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Skill'
+                  $ref: '#/components/schemas/SkillId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1386,7 +1386,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Skill'
+                $ref: '#/components/schemas/SkillId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1422,7 +1422,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Skill'
+                $ref: '#/components/schemas/SkillId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1460,7 +1460,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Skill'
+                $ref: '#/components/schemas/SkillId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1522,7 +1522,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Language'
+                  $ref: '#/components/schemas/LanguageId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1558,7 +1558,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Language'
+                $ref: '#/components/schemas/LanguageId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1594,7 +1594,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Language'
+                $ref: '#/components/schemas/LanguageId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1632,7 +1632,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Language'
+                $ref: '#/components/schemas/LanguageId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1694,7 +1694,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Interest'
+                  $ref: '#/components/schemas/InterestId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1733,7 +1733,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Interest'
+                $ref: '#/components/schemas/InterestId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1769,7 +1769,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Interest'
+                $ref: '#/components/schemas/InterestId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1810,7 +1810,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Interest'
+                $ref: '#/components/schemas/InterestId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1872,7 +1872,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Reference'
+                  $ref: '#/components/schemas/ReferenceId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1908,7 +1908,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reference'
+                $ref: '#/components/schemas/ReferenceId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -1944,7 +1944,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reference'
+                $ref: '#/components/schemas/ReferenceId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -1982,7 +1982,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reference'
+                $ref: '#/components/schemas/ReferenceId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -2044,7 +2044,7 @@ paths:
                 type: array
                 maxItems: 256
                 items:
-                  $ref: '#/components/schemas/Project'
+                  $ref: '#/components/schemas/ProjectId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -2080,7 +2080,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
+                $ref: '#/components/schemas/ProjectId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -2116,7 +2116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
+                $ref: '#/components/schemas/ProjectId'
         '401':
           $ref: '#/components/responses/401ErrorResponse'
         '403':
@@ -2154,7 +2154,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Project'
+                $ref: '#/components/schemas/ProjectId'
         '400':
           $ref: '#/components/responses/400ErrorResponse'
         '401':
@@ -2402,6 +2402,31 @@ components:
           $ref: '#/components/schemas/ContentExtended'
         highlights:
           $ref: '#/components/schemas/ItemsList'
+    WorkId:
+      type: object
+      description: Work resume resource with additional "id" field for API management
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        location:
+          $ref: '#/components/schemas/Name'
+        description:
+          $ref: '#/components/schemas/ContentExtended'
+        position:
+          $ref: '#/components/schemas/Name'
+        url:
+          $ref: '#/components/schemas/URL'
+        startDate:
+          $ref: '#/components/schemas/Date'
+        endDate:
+          $ref: '#/components/schemas/Date'
+        summary:
+          $ref: '#/components/schemas/ContentExtended'
+        highlights:
+          $ref: '#/components/schemas/ItemsList'
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Volunteer:
       type: object
       additionalProperties: false
@@ -2431,6 +2456,26 @@ components:
           $ref: '#/components/schemas/ContentExtended'
         highlights:
           $ref: '#/components/schemas/ItemsList'
+    VolunteerId:
+      type: object
+      additionalProperties: false
+      properties:
+        organization:
+          $ref: '#/components/schemas/Name'
+        position:
+         $ref: '#/components/schemas/Name'
+        url:
+          $ref: '#/components/schemas/URL'
+        startDate:
+          $ref: '#/components/schemas/Date'
+        endDate:
+          $ref: '#/components/schemas/Date'
+        summary:
+          $ref: '#/components/schemas/ContentExtended'
+        highlights:
+          $ref: '#/components/schemas/ItemsList'
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Education:
       type: object
       additionalProperties: false
@@ -2470,6 +2515,36 @@ components:
           maxItems: 128
           items:
             $ref: '#/components/schemas/Name'
+    EducationId:
+      type: object
+      additionalProperties: false
+      properties:
+        institution:
+          $ref: '#/components/schemas/Name'
+        url:
+          $ref: '#/components/schemas/URL'
+        area:
+          $ref: '#/components/schemas/ShortName'
+        studyType:
+          $ref: '#/components/schemas/ShortName'
+        startDate:
+          $ref: '#/components/schemas/Date'
+        endDate:
+          $ref: '#/components/schemas/Date'
+        score:
+          type: string
+          description: GPA scores ranging from 0.00 to 4.00
+          maxLength: 4
+          pattern: ^(?:[0-3](?:\.\d{1,2})?|4(?:\.0{1,2})?)$
+          example: '3.75'
+        courses:
+          type: array
+          description: List notable courses/subjects
+          maxItems: 128
+          items:
+            $ref: '#/components/schemas/Name'
+        id: 
+          $ref: '#/components/schemas/ResourceId'
     Award:
       type: object
       additionalProperties: false
@@ -2487,6 +2562,20 @@ components:
           $ref: '#/components/schemas/Name'
         summary:
           $ref: '#/components/schemas/ContentExtended'
+    AwardId:
+      type: object
+      additionalProperties: false
+      properties:
+        title:
+          $ref: '#/components/schemas/Name'
+        date:
+          $ref: '#/components/schemas/Date'
+        awarder:
+          $ref: '#/components/schemas/Name'
+        summary:
+          $ref: '#/components/schemas/ContentExtended'
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Certificate:
       type: object
       additionalProperties: false
@@ -2504,6 +2593,20 @@ components:
           $ref: '#/components/schemas/URL'
         issuer:
           $ref: '#/components/schemas/Name'
+    CertificateId:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        date:
+          $ref: '#/components/schemas/Date'
+        url:
+          $ref: '#/components/schemas/URL'
+        issuer:
+          $ref: '#/components/schemas/Name'
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Publication:
       type: object
       additionalProperties: false
@@ -2524,6 +2627,22 @@ components:
           $ref: '#/components/schemas/URL'
         summary:
           $ref: '#/components/schemas/ContentExtended'
+    PublicationId:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        publisher:
+          $ref: '#/components/schemas/Name'
+        releaseDate:
+          $ref: '#/components/schemas/Date'
+        url:
+          $ref: '#/components/schemas/URL'
+        summary:
+          $ref: '#/components/schemas/ContentExtended'
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Skill:
       type: object
       additionalProperties: false
@@ -2544,6 +2663,22 @@ components:
           example: Master
         keywords:
           $ref: '#/components/schemas/ItemsList'
+    SkillId:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        level:
+          type: string
+          description: A self evaluated level of proficiency
+          maxLength: 32
+          pattern: ^[\s\S]{0,32}$
+          example: Master
+        keywords:
+          $ref: '#/components/schemas/ItemsList'
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Language:
       type: object
       additionalProperties: false
@@ -2565,6 +2700,29 @@ components:
             - Professional working
             - Full professional
             - Native or bilingual
+    LanguageId:
+      type: object
+      additionalProperties: false
+      properties:
+        language:
+          type: string
+          maxLength: 64
+          pattern: ^[a-zA-Z\s()'-]+$
+          example: English
+        fluency:
+          description: >-
+            Language fluency according to the ILR scale
+            https://en.wikipedia.org/wiki/ILR_scale
+          type: string
+          enum:
+            - No proficiency
+            - Elementary
+            - Limited working
+            - Professional working
+            - Full professional
+            - Native or bilingual
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Interest:
       type: object
       additionalProperties: false
@@ -2578,6 +2736,16 @@ components:
           $ref: '#/components/schemas/Name'
         keywords:
           $ref: '#/components/schemas/ItemsList'
+    InterestId:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        keywords:
+          $ref: '#/components/schemas/ItemsList'
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Reference:
       type: object
       additionalProperties: false
@@ -2591,6 +2759,16 @@ components:
           $ref: '#/components/schemas/Name'
         reference:
           $ref: '#/components/schemas/ContentExtended'
+    ReferenceId:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        reference:
+          $ref: '#/components/schemas/ContentExtended'
+        id:
+          $ref: '#/components/schemas/ResourceId'
     Project:
       type: object
       additionalProperties: false
@@ -2643,6 +2821,44 @@ components:
           example: Home Automation
           maxLength: 256
           pattern: ^[\s\S]{0,256}$
+    ProjectId:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        description:
+          $ref: '#/components/schemas/ContentExtended'
+        highlights:
+          $ref: '#/components/schemas/ItemsList'
+        keywords:
+          $ref: '#/components/schemas/ItemsList'
+        startDate:
+          $ref: '#/components/schemas/Date'
+        endDate:
+          $ref: '#/components/schemas/Date'
+        url:
+          $ref: '#/components/schemas/URL'
+        roles:
+          type: array
+          description: Specify your role on this project or in company
+          maxItems: 128
+          items:
+            $ref: '#/components/schemas/ContentBrief'
+        entity:
+          type: string
+          description: Specify the relevant company/entity affiliations e.g. Greenpeace, ExxonMobil
+          maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+          example: Corporation XYZ
+        type:
+          type: string
+          description: Type of project, i.e. volunteering, presentation, talk, application, conference
+          example: Home Automation
+          maxLength: 256
+          pattern: ^[\s\S]{0,256}$
+        id:
+          $ref: '#/components/schemas/ResourceId'
     # Error Schemas
     Error:
       type: object
@@ -2677,10 +2893,12 @@ components:
     ShortName:
       type: string
       maxLength: 64
+      example: Short string
       pattern: ^[\s\S]{0,64}$
     Name:
       type: string
       maxLength: 256
+      example: Generic string
       pattern: ^[\s\S]{0,256}$
     URL:
       type: string
@@ -2688,7 +2906,7 @@ components:
       # Not supported until OpenAPI v3.1.0 https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#relativeReferencesURI
       # format: uri
       maxLength: 2048 # RFC 7230
-      example: http://example.com/path
+      example: scheme://user:pass@subdomain.example.com/full/path?query=value
       pattern: ^(?:[^:/?#]+:)?(?:\/\/[^/?#]*)?(?:[^?#]*)(?:\?[^#]*)?(?:#.*)?$
     Email:
       type: string
@@ -2716,8 +2934,6 @@ components:
         Sed consectetur mi eget libero lacinia efficitur.
         Fusce id mi et nisi scelerisque pharetra.
         Nunc sodales ut nunc eu facilisis.
-        Mauris lobortis lectus non tellus iaculis luctus eu at elit.
-        Donec posuere eleifend odio, at convallis purus dapibus sit amet.
       maxLength: 8192
       pattern: ^[a-zA-Z0-9\s`~!@#$%^&*()-=_+[\]{}|;:'",.<>/?\\]{0,8192}$
     ResourceId:
