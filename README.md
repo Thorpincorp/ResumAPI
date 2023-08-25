@@ -11,3 +11,9 @@ OpenAPI Specification compliant with the open-source [json-resume schema](https:
 Linted using the [Spectral CLI linter](https://www.npmjs.com/package/@stoplight/spectral-cli)
 
 API schema is scanned using the [42Crunch API security audit tooling](https://docs.42crunch.com/latest/content/concepts/api_contract_security_audit.htm)
+
+Openapi security audit is run locally using the VSCode plugin:
+
+```shell
+code --install-extension 42crunch.vscode-openapi
+```
