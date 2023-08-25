@@ -4,6 +4,7 @@
     "asyncapi",
     "commitlint",
     "expressjs",
+    "nvmrc",
     "openapi",
     "precommit",
     "reactjs",
