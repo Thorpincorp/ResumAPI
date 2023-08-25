@@ -1,6 +1,7 @@
 {
   "name": "resumopenapi",
   "packageManager": "yarn@3.6.1",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
@@ -8,7 +9,8 @@
     "@stoplight/spectral-cli": "^6.10.1",
     "husky": "^8.0.0",
     "lint-staged": "^14.0.1",
-    "prettier": "^3.0.1"
+    "prettier": "^3.0.1",
+    "standard-version": "^9.5.0"
   },
   "prettier": {
     "editorconfig": true,
@@ -21,7 +23,8 @@
   "scripts": {
     "audit": "yarn npm audit --all --environment production",
     "lint": "spectral lint openapi/*",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "release": "standard-version"
   },
   "lint-staged": {
     "*.openapi.yml": "spectral lint",
