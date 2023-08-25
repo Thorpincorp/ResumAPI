@@ -7,6 +7,7 @@
     "@commitlint/config-conventional": "^17.7.0",
     "@stoplight/spectral-cli": "^6.10.1",
     "husky": "^8.0.0",
+    "lint-staged": "^14.0.1",
     "prettier": "^3.0.1"
   },
   "prettier": {
@@ -18,8 +19,13 @@
     "trailingComma": "all"
   },
   "scripts": {
+    "audit": "yarn npm audit --all --environment production",
     "lint": "spectral lint openapi/*",
-    "postinstall": "husky install"
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.openapi.yml": "spectral lint",
+    "**/*.{js,json,md,yaml}": "prettier --write"
   },
   "commitlint": {
     "extends": [

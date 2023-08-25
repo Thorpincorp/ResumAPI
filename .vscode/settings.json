@@ -1,9 +1,11 @@
 {
   "cSpell.language": "en-GB,en,lorem",
   "cSpell.words": [
+    "asyncapi",
     "commitlint",
     "expressjs",
     "openapi",
+    "precommit",
     "reactjs",
     "Resumapi",
     "resumopenapi",
