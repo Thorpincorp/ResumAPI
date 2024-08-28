@@ -11,7 +11,7 @@ on:
 jobs:
   lint:
     name: Run Spectral Linter
-    runs-on: self-hosted
+    runs-on: arc-runner-set
 
     steps:
       - name: Checkout code
