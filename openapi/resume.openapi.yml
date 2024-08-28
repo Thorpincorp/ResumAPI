@@ -8,12 +8,12 @@ info:
   contact:
     url: https://support.thorpincorp.com
 
-tags:
-  - name: Resume
-    description: A full json-resume compliant resume for a specific user
-  - name: Resource
-    description: >-
-      An individual resource item associated with a users resume. For example, work history
+# tags:
+#   - name: Resume
+#     description: A full json-resume compliant resume for a specific user
+#   - name: Resource
+#     description: >-
+#       An individual resource item associated with a users resume. For example, work history
 
 servers:
   - url: https://resume.thorpincorp.com
