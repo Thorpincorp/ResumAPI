@@ -9,3 +9,48 @@
 # Documentation here: https://yarnpkg.com/features/zero-installs
 # !.yarn/cache
 .pnp.*
+
+node_modules
+**/node_modules/**
+
+.DS_Store
+
+/reports/
+coverage/
+test-report.html
+report-*.html
+create-reports-example.html
+
+.build/
+.next/
+
+gcp.credentials.*
+**/*.tgz
+
+lerna-debug.log
+yarn-error.log
+
+/.idea/*
+!/.idea/runConfigurations
+
+*.iml
+
+.scannerwork
+package-lock.json
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.dccache
+Open Banking Accelerator.code-workspace
+
+out/
+
+ci/asb/certs/ca_passphrase.txt
+
+**/.sonarlint
